@@ -2,9 +2,10 @@ Exemples phrases :
 python say_command.py turn on light living room
 python say_command.py turn off light living room
 python say_command.py turn off the light in the living room
+python say_command.py turn on the light in the living room
 
 python say_command.py allume la lumiére du salon
-python say_command.py éteind la lumiére du salon
+python say_command.py eteind la lumiere du salon
 
 python say_command.py turn on light corridor
 python say_command.py turn off light corridor
@@ -26,3 +27,8 @@ Principe config :
 what-where
 exemple (la case ne compte pas) :
 temperature-living room
+
+Dev:
+sudo service mycroft-skills restart
+
+sudo tailf /var/log/mycroft-skills.log

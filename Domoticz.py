@@ -30,8 +30,9 @@ class Domoticz:
         return 0
 
     def switch(self, state, idx):
-        f = urllib.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + str(state))
-        f.read()
+        f = urllib.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + str(state.title()))
+        response = f.read()
+        LOGGER.debug(str(response))
 
     def get(self, idx):
         f = urllib.urlopen(self.url + "/json.htm?type=devices&rid=" + idx)
