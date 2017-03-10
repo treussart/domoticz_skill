@@ -51,10 +51,14 @@ class DomoticzSkill(MycroftSkill):
         state = message.data.get("StateKeyword")
         what = message.data.get("WhatKeyword")
         where = message.data.get("WhereKeyword")
+        data = {
+            'what': what,
+            'where': where
+        }
         LOGGER.debug("message : " + str(message.data))
         idx = domoticz.convert_name_to_idx(what, where)
         if idx is 0:
-            self.speak_dialog("NotFound")
+            self.speak_dialog("NotFound", data)
         else:
             LOGGER.debug("idx : " + str(idx))
             domoticz.switch(state, idx)
@@ -65,8 +69,15 @@ class DomoticzSkill(MycroftSkill):
         where = message.data.get("WhereKeyword")
         domoticz = Domoticz()
         idx = domoticz.convert_name_to_idx(what, where)
+        data = {
+            'what': what,
+            'where': where
+        }
         if idx is 0:
-            self.speak_dialog("NotFound")
+            if where is None:
+                self.speak_dialog("NotFoundShort", data)
+            else:
+                self.speak_dialog("NotFound", data)
         else:
             response = domoticz.get(idx)
             # LOGGER.debug("response : " + str(response))
