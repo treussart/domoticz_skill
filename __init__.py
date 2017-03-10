@@ -34,7 +34,7 @@ class DomoticzSkill(MycroftSkill):
 
     def initialize(self):
         domoticz_switch_intent = IntentBuilder("SwitchIntent")\
-                                 .require("TurnKeyword")\
+                                 .optionally("TurnKeyword")\
                                  .require("StateKeyword")\
                                  .require("WhatKeyword")\
                                  .require("WhereKeyword").build()
