@@ -1,0 +1,9 @@
+{
+  "utterance": "get temperature in the living room",
+  "intent_type": "InfosIntent",
+  "intent": {
+    "InfosKeyword": "get",
+    "WhatKeyword": "temperature",
+    "WhereKeyword": "living room"
+  }
+}

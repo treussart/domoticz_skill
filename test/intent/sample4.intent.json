@@ -1,0 +1,8 @@
+{
+  "utterance": "can I get the next trains",
+  "intent_type": "InfosIntent",
+  "intent": {
+    "InfosKeyword": "get",
+    "WhatKeyword": "next trains"
+  }
+}

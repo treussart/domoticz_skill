@@ -1,0 +1,10 @@
+{
+  "utterance": "turn on the light in the living room",
+  "intent_type": "SwitchIntent",
+  "intent": {
+    "TurnKeyword": "turn",
+    "StateKeyword": "on",
+    "WhatKeyword": "light",
+    "WhereKeyword": "living room"
+  }
+}
