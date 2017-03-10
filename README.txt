@@ -32,3 +32,5 @@ Dev:
 sudo service mycroft-skills restart
 
 sudo tailf /var/log/mycroft-skills.log
+
+tester sur tel avec tasker et google.
