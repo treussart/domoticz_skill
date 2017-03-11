@@ -1,4 +1,5 @@
 __pycache__/
 docs/_build/
+.venv
 .idea
 /._.DS_Store
