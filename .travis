@@ -20,7 +20,6 @@ branches:
 # command to install dependencies
 install:
   - pip install -r test-requirements.txt
-  - pip install -r doc-requirements.txt
 
 before_script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
@@ -28,8 +27,3 @@ before_script:
 # command to run tests
 script:
   - flake8 .
-  - cd docs
-  - mkdir _static
-  - mkdir _build
-  - mkdir _templates
-  - sphinx-build -b html -d _build/doctrees . _build/html
