@@ -1,7 +1,7 @@
 domoticz_skill
 ==============
 
-|Licence| |Code Health| |Coverage Status| |Documentation Status|
+|Licence| |Code Health| |Coverage Status|
 
 +------------------+--------------------+
 | Status           | Operating system   |
@@ -9,7 +9,7 @@ domoticz_skill
 | |Build Status|   | Linux x86\_64      |
 +------------------+--------------------+
 
-Hi!
+This skill is for controlling Domoticz with the source voice assistant Mycroft.
 
 
 Requirements
@@ -19,10 +19,6 @@ Requirements
 -  `Domoticz`_.
 -  `Mycroft`_.
 
-Documentation
--------------
-
-Read the documentation on `http://domoticz_skill.readthedocs.io/ <http:///domoticz_skill.readthedocs.io/>`_.
 
 Configuration
 -------------
@@ -39,6 +35,9 @@ The principle is to put the 'what' followed by the 'where' separated by a hyphen
 ::
 
    'what-where' = idx
+
+
+idx is the device number in Domoticz.
 
 examples :
 
@@ -63,8 +62,8 @@ In French :
 -  éteind la lumiere du salon
 
 
-Coming Soon
------------
+Todo
+----
 
 Use with Tasker on Android for send command voice to Mycroft.
 
@@ -74,11 +73,9 @@ Use with Tasker on Android for send command voice to Mycroft.
 
 
 .. |Licence| image:: https://img.shields.io/packagist/l/doctrine/orm.svg
-.. |Code Health| image:: https://landscape.io/github/matleses/Transilien-Domoticz/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/matleses/Transilien-Domoticz/master
-.. |Coverage Status| image:: https://coveralls.io/repos/github/matleses/Transilien-Domoticz/badge.svg?branch=master
-   :target: https://coveralls.io/github/matleses/Transilien-Domoticz?branch=master
-.. |Documentation Status| image:: https://readthedocs.org/projects/transilien-domoticz/badge/?version=latest
-   :target: http://transilien-domoticz.readthedocs.io/?badge=latest
-.. |Build Status| image:: https://travis-ci.org/matleses/Transilien-Domoticz.svg?branch=master
-   :target: https://travis-ci.org/matleses/Transilien-Domoticz
+.. |Code Health| image:: https://landscape.io/github/matleses/domoticz_skill/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/matleses/domoticz_skill/master
+.. |Coverage Status| image:: https://coveralls.io/repos/github/matleses/domoticz_skill/badge.svg?branch=master
+   :target: https://coveralls.io/github/matleses/domoticz_skill?branch=master
+.. |Build Status| image:: https://travis-ci.org/matleses/domoticz_skill.svg?branch=master
+   :target: https://travis-ci.org/matleses/domoticz_skill
