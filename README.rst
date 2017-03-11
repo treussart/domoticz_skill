@@ -52,12 +52,14 @@ Usage
 examples:
 
 In English :
+
 -  turn off the light in the living room
 -  turn on the light in the living room
 -  get temperature in the living room
 -  can I get the next trains
 
 In French :
+
 -  allume la lumière du salon
 -  éteind la lumiere du salon
 
