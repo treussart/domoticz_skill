@@ -55,10 +55,10 @@ In English :
 
 -  turn off the light in the living room
 -  turn on the light in the living room
--  get temperature in the living room
--  can I get the next trains
+-  can I get temperature in the living room
+-  what's the temperature in the living room
 
-In French :
+In French (not yet tested) :
 
 -  allume la lumière du salon
 -  éteind la lumiere du salon
