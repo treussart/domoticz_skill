@@ -18,7 +18,7 @@
 from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
-from os.path import dirname, abspath, basename
+from os.path import dirname, abspath
 import sys
 __author__ = 'mTreussart'
 
@@ -34,17 +34,19 @@ class DomoticzSkill(MycroftSkill):
 
     def initialize(self):
         domoticz_switch_intent = IntentBuilder("SwitchIntent")\
-                                 .optionally("TurnKeyword")\
-                                 .require("StateKeyword")\
-                                 .require("WhatKeyword")\
-                                 .require("WhereKeyword").build()
-        self.register_intent(domoticz_switch_intent, self.handle_domoticz_switch_intent)
+            .optionally("TurnKeyword")\
+            .require("StateKeyword")\
+            .require("WhatKeyword")\
+            .require("WhereKeyword").build()
+        self.register_intent(domoticz_switch_intent,
+                             self.handle_domoticz_switch_intent)
 
-        domoticz_infos_intent = IntentBuilder("InfosIntent") \
-                                .require("InfosKeyword") \
-                                .require("WhatKeyword") \
-                                .optionally("WhereKeyword").build()
-        self.register_intent(domoticz_infos_intent, self.handle_domoticz_infos_intent)
+        domoticz_infos_intent = IntentBuilder("InfosIntent")\
+            .require("InfosKeyword")\
+            .require("WhatKeyword")\
+            .optionally("WhereKeyword").build()
+        self.register_intent(domoticz_infos_intent,
+                             self.handle_domoticz_infos_intent)
 
     def handle_domoticz_switch_intent(self, message):
         domoticz = Domoticz()
@@ -62,7 +64,6 @@ class DomoticzSkill(MycroftSkill):
         else:
             LOGGER.debug("idx : " + str(idx))
             domoticz.switch(state, idx)
-
 
     def handle_domoticz_infos_intent(self, message):
         what = message.data.get("WhatKeyword")
@@ -84,7 +85,6 @@ class DomoticzSkill(MycroftSkill):
             data = response['result'][0]['Data']
             LOGGER.debug("result : " + str(data))
             self.speak(data)
-
 
     def stop(self):
         pass

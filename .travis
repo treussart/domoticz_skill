@@ -1,0 +1,35 @@
+notifications:
+  email:
+    recipients:
+      - matleses0@gmail.com
+    on_success: change # default: change
+    on_failure: always # default: always
+
+language: python
+
+python:
+  - "2.7"
+
+os:
+  - linux
+
+branches:
+  only:
+    - master
+
+# command to install dependencies
+install:
+  - pip install -r test-requirements.txt
+  - pip install -r doc-requirements.txt
+
+before_script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
+
+# command to run tests
+script:
+  - flake8 .
+  - cd docs
+  - mkdir _static
+  - mkdir _build
+  - mkdir _templates
+  - sphinx-build -b html -d _build/doctrees . _build/html
