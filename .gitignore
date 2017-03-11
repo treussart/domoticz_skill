@@ -3,3 +3,5 @@ docs/_build/
 .venv
 .idea
 /._.DS_Store
+htmlcov
+/.coverage

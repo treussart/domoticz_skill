@@ -1,5 +1,4 @@
 import urllib
-from urllib.error import URLError, HTTPError
 import ConfigParser
 import os
 import json
@@ -32,20 +31,17 @@ class Domoticz:
 
     def switch(self, state, idx):
         try:
-            f = urllib.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + str(state.title()))
+            f = urllib.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + str(state).title())
             response = f.read()
             LOGGER.debug(str(response))
-        except HTTPError as e:
-            LOGGER.error(str(e) + ' : ' + str(e.read()))
-        except URLError as e:
+            return response
+        except IOError as e:
             LOGGER.error(str(e) + ' : ' + str(e.read()))
 
     def get(self, idx):
         try:
-            f = urllib.urlopen(self.url + "/json.htm?type=devices&rid=" + idx)
+            f = urllib.urlopen(self.url + "/json.htm?type=devices&rid=" + str(idx))
             response = f.read()
             return json.loads(response)
-        except HTTPError as e:
-            LOGGER.error(str(e) + ' : ' + str(e.read()))
-        except URLError as e:
+        except IOError as e:
             LOGGER.error(str(e) + ' : ' + str(e.read()))

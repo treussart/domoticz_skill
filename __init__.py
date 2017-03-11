@@ -81,7 +81,6 @@ class DomoticzSkill(MycroftSkill):
                 self.speak_dialog("NotFound", data)
         else:
             response = domoticz.get(idx)
-            # LOGGER.debug("response : " + str(response))
             data = response['result'][0]['Data']
             LOGGER.debug("result : " + str(data))
             self.speak(data)

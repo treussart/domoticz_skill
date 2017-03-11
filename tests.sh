@@ -8,10 +8,7 @@ export PYTHONPATH=$PYTHONPATH:$(pwd)
 
 coverage erase
 coverage run test/Test_Domoticz.py
-#coverage run -a test/Test_init.py
-
 coverage report -i
-
-#coverage html
+coverage html
 
 flake8 .
