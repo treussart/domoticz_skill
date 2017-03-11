@@ -5,3 +5,5 @@ docs/_build/
 /._.DS_Store
 htmlcov
 /.coverage
+/.coveralls.yml
+/coverage.json

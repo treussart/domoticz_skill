@@ -11,4 +11,7 @@ coverage run test/Test_Domoticz.py
 coverage report -i
 coverage html
 
+#coveralls --output=coverage.json
+#coveralls --merge=coverage.json
+
 flake8 .
