@@ -19,7 +19,12 @@ class Domoticz:
         self.config.read(config_file)
         self.host = self.config.get('domoticz', 'host')
         self.port = self.config.get('domoticz', 'port')
-        self.url = "http://" + self.host + ":" + self.port
+        if self.config.get('domoticz', 'authentication') is "True":
+            self.login = self.config.get('domoticz', 'login')
+            self.password = self.config.get('domoticz', 'password')
+            self.url = "http://" + self.login + ":" + self.password + "@" + self.host + ":" + self.port
+        else:
+            self.url = "http://" + self.host + ":" + self.port
 
     def convert_name_to_idx(self, what, where):
         """Convert the 'what' and the 'where', for recover the idx of the device in Domoticz."""
