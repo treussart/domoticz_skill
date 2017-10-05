@@ -22,7 +22,7 @@ try:
     if f.getcode() == 200:
         print("Connection OK")
     else:
-        print("Connection KO") 
+        print("Connection KO")
 
 except Exception as e:
     print("Connection KO: " + str(e.__str__()))
