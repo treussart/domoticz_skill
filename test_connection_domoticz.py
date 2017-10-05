@@ -13,14 +13,12 @@ port = config.get('domoticz', 'port')
 protocol = config.get('domoticz', 'protocol')
 if config.get('domoticz', 'authentication') is "True":
     login = config.get('domoticz', 'login')
-    password = .config.get('domoticz', 'password')
+    password = config.get('domoticz', 'password')
     url = protocol + "://" + login + ":" + password + "@" + host + ":" + port
 else:
     url = protocol + "://" + host + ":" + port
-            
-
 try:
-    f = urllib.urlopen(url + "/json.htm?type=devices&used=true&filter=all"
+    f = urllib.urlopen(url + "/json.htm?type=devices&used=true&filter=all")
     if f.getcode() == 200:
         print("Connection OK")
     else:
