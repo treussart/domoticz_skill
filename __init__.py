@@ -20,6 +20,7 @@ from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from os.path import dirname, abspath
 import sys
+import re
 __author__ = 'mTreussart'
 
 sys.path.append(abspath(dirname(__file__)))
@@ -82,6 +83,10 @@ class DomoticzSkill(MycroftSkill):
         else:
             response = domoticz.get(idx)
             data = response['result'][0]['Data']
+            if re.search('\d\s+C$', data):
+                data = data.replace(' C', ' degrees celsius')
+            if re.search('\d\s+F$', data):
+                data = data.replace(' F', ' degrees fahrenheit')
             LOGGER.debug("result : " + str(data))
             self.speak(data)
 
