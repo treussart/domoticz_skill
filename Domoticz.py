@@ -1,6 +1,7 @@
 """For controlling Domoticz."""
 import urllib
-import ConfigParser
+import urllib.request
+import configparser
 import os
 import json
 from mycroft.util.log import getLogger
@@ -15,7 +16,7 @@ class Domoticz:
         """Recover the config files for accessing to Domoticz instance."""
         config_name = "conf.cfg"
         config_file = os.path.join(os.path.dirname(__file__), config_name)
-        self.config = ConfigParser.ConfigParser()
+        self.config = configparser.ConfigParser()
         self.config.read(config_file)
         self.host = self.config.get('domoticz', 'host')
         self.port = self.config.get('domoticz', 'port')
@@ -42,7 +43,7 @@ class Domoticz:
     def switch(self, state, idx):
         """Switch the device in Domoticz."""
         try:
-            f = urllib.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + str(state).title())
+            f = urllib.request.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + str(state).title())
             response = f.read()
             LOGGER.debug(str(response))
             return response
