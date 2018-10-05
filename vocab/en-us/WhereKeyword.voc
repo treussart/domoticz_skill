@@ -1,6 +1,9 @@
 armchair
 attic
 basement
+basement door
+basement slider
+back
 back door
 bathroom
 bedroom
@@ -8,26 +11,37 @@ bedroom one
 bedroom two
 bedroom three
 boardroom
+boys
 cellar
+chair
 chamber
 chesterfield
-children's bedroom
+childrens bedroom
 classroom
 closet
 computer room
+coop
 corridor
+couch
+deck
+deck door
+deck slider
 dining room
 dormitory
+downstairs
 driveway
 entrance
 entry
 fireplace
+front
 front door
 front yard
 game room
 garage
+garage door
 garden
 garret
+girls
 guest room
 gym room
 hall
@@ -38,6 +52,7 @@ jacuzzi
 kitchen
 laundry
 lawn
+left
 library
 living room
 loveseat
@@ -50,12 +65,19 @@ office
 outside
 panic room
 pantry
-parent's bedroom
+parents bedroom
 patio
 playroom
 pool
 porch
+porch door
+porch slider
 rec room
+right
+side
+side door
+sink
+slider
 sports Hall
 staircase
 stairs
@@ -68,10 +90,11 @@ TV room
 upstairs
 utility room
 vestibule
-visitor's room
+visitors room
 waiting room
 walkway
 washroom
 water closet
 wine cellar
 workshop
+yard

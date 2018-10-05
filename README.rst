@@ -15,7 +15,7 @@ This skill is for controlling Domoticz with the source voice assistant Mycroft.
 Requirements
 ------------
 
--  `Python2`_.
+-  `Python3`_.
 -  `Domoticz`_.
 -  `Mycroft`_.
 
@@ -69,7 +69,7 @@ Todo
 
 Use with Tasker on Android for send command voice to Mycroft.
 
-.. _Python2: https://www.python.org/downloads/
+.. _Python3: https://www.python.org/downloads/
 .. _Mycroft: https://mycroft.ai/
 .. _Domoticz: https://domoticz.com/
 

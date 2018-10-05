@@ -45,7 +45,8 @@ class DomoticzSkill(MycroftSkill):
         domoticz_infos_intent = IntentBuilder("InfosIntent")\
             .require("InfosKeyword")\
             .require("WhatKeyword")\
-            .optionally("WhereKeyword").build()
+            .optionally("WhereKeyword")\
+            .optionally("StateKeyword").build()
         self.register_intent(domoticz_infos_intent,
                              self.handle_domoticz_infos_intent)
 
@@ -61,34 +62,59 @@ class DomoticzSkill(MycroftSkill):
         LOGGER.debug("message : " + str(message.data))
         idx = domoticz.convert_name_to_idx(what, where)
         if idx is 0:
-            self.speak_dialog("NotFound", data)
+            response = domoticz.switch(state, what, where)
+            edng = re.compile(str(state).title(),re.I)
+            ending = "ed"
+            if edng.search('on') or edng.search('off'):
+                ending = ""
+            if response is None:
+                self.speak_dialog("NotFound", data)
+            elif response is 0:
+                self.speak("The " + str(what) + " is already " + str(state).title() + ending)
+            elif response is 1:
+                self.speak("The " + str(what) + " can not be operated with " + str(state).title())
         else:
             LOGGER.debug("idx : " + str(idx))
-            domoticz.switch(state, idx)
+            domoticz.switchid(state, idx)
 
     def handle_domoticz_infos_intent(self, message):
         what = message.data.get("WhatKeyword")
         where = message.data.get("WhereKeyword")
         domoticz = Domoticz()
         idx = domoticz.convert_name_to_idx(what, where)
+        #idx = 1
         data = {
             'what': what,
             'where': where
         }
         if idx is 0:
-            if where is None:
-                self.speak_dialog("NotFoundShort", data)
-            else:
-                self.speak_dialog("NotFound", data)
-        else:
-            response = domoticz.get(idx)
-            data = response['result'][0]['Data']
-            if re.search('\d\s+C$', data):
+            response = domoticz.get(what, where)
+            data = str(response['Data'])
+            if data is None:
+                if where is None:
+                    self.speak_dialog("NotFoundShort", data)
+                else:
+                    self.speak_dialog("NotFound", data)
+            if re.search('\d\s+C', data):
                 data = data.replace(' C', ' degrees celsius')
-            if re.search('\d\s+F$', data):
+            if re.search('\d\s+F', data):
                 data = data.replace(' F', ' degrees fahrenheit')
             LOGGER.debug("result : " + str(data))
-            self.speak(data)
+            self.speak(str(data))
+        else:
+            response = domoticz.getid(idx)
+            data = response['result'][0]['Data']
+            if data is None:
+                if where is None:
+                    self.speak_dialog("NotFoundShort", data)
+                else:
+                    self.speak_dialog("NotFound", data)
+            if re.search('\d\s+C', data):
+                data = data.replace(' C', ' degrees celsius')
+            if re.search('\d\s+F', data):
+                data = data.replace(' F', ' degrees fahrenheit')
+            LOGGER.debug("result : " + str(data))
+            self.speak(str(data))
 
     def stop(self):
         pass
