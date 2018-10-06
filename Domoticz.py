@@ -73,6 +73,12 @@ class Domoticz:
             whr = re.compile(where,re.I)
             while i < len(payload['result']):
                 if  whr.search(payload['result'][i]['Name']) and wht.search(payload['result'][i]['Name']):
+                    stype = payload['result'][i]['Type']
+                    typ = re.compile(stype,re.I)
+                    if typ.search("Group") or typ.search("Scene"):
+                        stype = "scene"
+                    else:
+                        stype = "light"
                     rslt = re.compile(" " + str(state).title(),re.I)
                     idx = payload['result'][i]['idx']
                     if rslt.search(" " + payload['result'][i]['Data']):
@@ -112,7 +118,7 @@ class Domoticz:
                 dropout = 0
             if dropout is 0:
                 try:
-                    f = urllib.request.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + cmd)
+                    f = urllib.request.urlopen(self.url + "/json.htm?type=command&param=switch" + stype + "&idx=" + str(idx) + "&switchcmd=" + cmd)
                     response = f.read()
                     LOGGER.debug(str(response))
                     return response

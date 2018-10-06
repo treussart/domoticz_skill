@@ -12,6 +12,7 @@ door
 dusk
 desktop
 dimmer
+dimmers
 electric counter
 energy
 flood sensor
@@ -19,8 +20,11 @@ flow sensor
 gas counter
 humidity
 latch
+latchs
 light
+lights
 lock
+locks
 luminosity
 lux
 media player
@@ -28,6 +32,7 @@ motion
 next trains
 oxygen sensor
 power plug
+power plugs
 presence
 rain
 smoke detector
@@ -45,4 +50,5 @@ water counter
 waterflow
 weather
 wind
+wind speed
 window
