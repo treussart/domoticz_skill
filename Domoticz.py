@@ -38,72 +38,39 @@ class Domoticz:
             for (key, val) in self.config.items("devices"):
                 if what.lower().strip() + "-" + where.lower().strip() == key.lower().strip():
                     return val
-        return 0
+        return None
 
-    def switchid(self, state, idx):
+    def switch(self, state, what, where, idx):
         """Switch the device in Domoticz."""
-        cmd = str(state).title()
-        rslt = re.compile(cmd,re.I)
-        dropout = 1
-        if rslt.search('lock') or rslt.search('open'):
-            cmd = "On"
-            dropout = 0
-        elif  rslt.search('unlock') or rslt.search('close'):
-            cmd = "Off"
-            dropout = 0
-        elif  rslt.search('on') or rslt.search('off'):
-            dropout = 0
-        if dropout is 0:
-            try:
-                f = urllib.request.urlopen(self.url + "/json.htm?type=command&param=switchlight&idx=" + str(idx) + "&switchcmd=" + cmd)
-                response = f.read()
-                LOGGER.debug(str(response))
-                return response
-            except IOError as e:
-                LOGGER.error(str(e) + ' : ' + str(e.read()))
-
-    def switch(self, state, what, where):
-        """Switch the device in Domoticz."""
-        f = urllib.request.urlopen(self.url + "/json.htm?type=devices&filter=all&used=true")
-        response = f.read()
-        payload = json.loads(response.decode('utf-8'))
-        wht = re.compile(what,re.I)
         i = 0
-        if where is not None:
-            whr = re.compile(where,re.I)
-            while i < len(payload['result']):
-                if  whr.search(payload['result'][i]['Name']) and wht.search(payload['result'][i]['Name']):
-                    stype = payload['result'][i]['Type']
-                    typ = re.compile(stype,re.I)
-                    if typ.search("Group") or typ.search("Scene"):
-                        stype = "scene"
-                    else:
-                        stype = "light"
-                    rslt = re.compile(" " + str(state).title(),re.I)
-                    idx = payload['result'][i]['idx']
-                    if rslt.search(" " + payload['result'][i]['Data']):
-                        result = 0
-                    else:
-                        result = 1
-                    break
-                elif i is len(payload['result'])-1:
-                    result = None
-                    break
-                i += 1
-        elif where is None:
-            while i < len(payload['result']):
-                if  wht.search(payload['result'][i]['Name']):
-                    rslt = re.compile(" " + str(state).title(),re.I)
-                    idx = payload['result'][i]['idx']
-                    if rslt.search(" " + payload['result'][i]['Data']):
-                        result = 0
-                    else:
-                        result = 1
-                    break
-                elif i is len(payload['result'])-1:
-                    result = None
-                    break
-                i += 1
+        wht = re.compile(what,re.I)
+        whr = re.compile(where,re.I)
+        if type(idx) is int:
+            f = urllib.request.urlopen(self.url + "/json.htm?type=devices&rid=" + str(idx))
+            response = f.read()
+        else:
+            f = urllib.request.urlopen(self.url + "/json.htm?type=devices&filter=all&used=true")
+            response = f.read()
+        payload = json.loads(response.decode('utf-8'))
+        while i < len(payload['result']):
+            if  whr.search(payload['result'][i]['Name']) and wht.search(payload['result'][i]['Name']):
+                stype = payload['result'][i]['Type']
+                typ = re.compile(stype,re.I)
+                if typ.search("Group") or typ.search("Scene"):
+                    stype = "scene"
+                else:
+                    stype = "light"
+                rslt = re.compile(" " + str(state).title(),re.I)
+                idx = payload['result'][i]['idx']
+                if rslt.search(" " + payload['result'][i]['Data']):
+                    result = 0
+                else:
+                    result = 1
+                break
+            elif i is len(payload['result'])-1:
+                result = None
+                break
+            i += 1
         if result is 1:
             cmd = str(state).title()
             rslt = re.compile(cmd,re.I)
