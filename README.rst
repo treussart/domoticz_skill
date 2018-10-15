@@ -23,7 +23,48 @@ Requirements
 Configuration
 -------------
 
+Name your devices in Domoticz like this: "What Where".  Mycroft will look for the device listed
+in Domoticz. However the skill will also look for "Where What" as well.  Devices can also be
+referenced by "What" alone but Mycroft will only fall back to that if it can't find the device
+using "What Where" or "Where What".
+
+examples device names:
+
+-  Living room light
+-  Outside temperature
+-  Front door lock
+
+example phrases:
+
+-  Hey Mycroft turn on the living room light
+-  Hey Mycroft what is the outside temperature?
+-  Hey Mycroft lock the front door
+
+Note:  Especially with weather sensors try to name your devices something that won't interfere
+with other skills.  For instance naming a device "weather" could cause Mycroft to give you the
+current stat for the device named "weather" if you ask "what's the weather" rather than telling
+you what the current weather is from the weather skill.
+
+
+Domoticz Groups and Scenes
+-----
+
+If you want Mycroft to do things like "turn off all the lights" in Domoticz then make a
+scene or group named "all the lights" with all the lights in it and the skill will find this
+group and operate the whole group rather than an individual object.  One caveat is that you
+want to make the scene name distinct from the individual switch name.  Mycroft is not good
+at picking out the "S" sound at the end of the word.  So a group with items in it called
+Kitchen Light, Counter Light and Stove Light, won't work properly if you call the groups
+name "Kitchen Lights".  Mycroft will trigger on "Kitchen Light" before it triggers on
+"Kitchen Lights".  So if you say "Hey Mycroft turn off the kicthen lights" it will most
+likely only turn off the light named "Kitchen Light".
+
+Config file
+-----
+
 Put your configuration in the file “conf.cfg”.
+This file is for overiding actual device names. If you want a device to be called something in
+Domoticz but something else by Mycroft.
 
 ::
 
