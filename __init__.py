@@ -55,13 +55,14 @@ class DomoticzSkill(MycroftSkill):
         state = message.data.get("StateKeyword")
         what = message.data.get("WhatKeyword")
         where = message.data.get("WhereKeyword")
+        action = message.data.get("TurnKeyword")
         data = {
             'what': what,
             'where': where
         }
         LOGGER.debug("message : " + str(message.data))
         idx = domoticz.convert_name_to_idx(what, where)
-        response = domoticz.switch(state, what, where, idx)
+        response = domoticz.switch(state, what, where, action, idx)
         edng = re.compile(str(state).title(),re.I)
         ending = "ed"
         if edng.search('on') or edng.search('off'):
@@ -98,6 +99,7 @@ class DomoticzSkill(MycroftSkill):
             data = data.replace(' C', ' degrees celsius')
         if re.search('\d\s+F', data):
             data = data.replace(' F', ' degrees fahrenheit')
+        data = "It's " + data
         LOGGER.debug("result : " + str(data))
         self.speak(str(data))
 

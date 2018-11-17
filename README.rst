@@ -23,27 +23,15 @@ Requirements
 Configuration
 -------------
 
-Name your devices in Domoticz like this: "What Where".  Mycroft will look for the device listed
-in Domoticz. However the skill will also look for "Where What" as well.  Devices can also be
+Name your devices in Domoticz like this: "Where What".  Mycroft will look for the device listed
+in Domoticz. However the skill will also look for "What Where" as well.  Devices can also be
 referenced by "What" alone but Mycroft will only fall back to that if it can't find the device
-using "What Where" or "Where What".
-
-examples device names:
-
--  Living room light
--  Outside temperature
--  Front door lock
-
-example phrases:
-
--  Hey Mycroft turn on the living room light
--  Hey Mycroft what is the outside temperature?
--  Hey Mycroft lock the front door
+using "Where What" or "What Where".
 
 Note:  Especially with weather sensors try to name your devices something that won't interfere
 with other skills.  For instance naming a device "weather" could cause Mycroft to give you the
 current stat for the device named "weather" if you ask "what's the weather" rather than telling
-you what the current weather is from the weather skill.
+you what the current weather is via the weather skill.
 
 
 Domoticz Groups and Scenes
@@ -63,15 +51,16 @@ Config file
 -----
 
 Put your configuration in the file “conf.cfg”.
-This file is for overiding actual device names. If you want a device to be called something in
-Domoticz but something else by Mycroft.
+This file is for telling Mycroft where your Domoticz server is and how it's configured.
+It can also be used for overiding actual device names. If you want a device to be called
+something in Domoticz but something else by Mycroft.
 
 ::
 
     Located in : domoticz_skill/conf.cfg
 
 
-The principle is to put the 'what' followed by the 'where' separated by a hyphen :
+The name overide principle is to put the 'what' followed by the 'where' separated by a hyphen :
 
 ::
 
@@ -87,17 +76,27 @@ examples :
 -  all lights-house = 3
 -  Light-Living room = 4
 
+The default settings for the domoticz connection and configuration is the local host without
+authentication.  If you change it make sure to back the file up before asking Mycroft to update
+your Domoticz skill.
+
 Usage
 -----
 
-examples:
-
 In English :
 
--  turn off the light in the living room
--  turn on the light in the living room
--  can I get temperature in the living room
--  what's the temperature in the living room
+examples device names:
+
+-  Living room light
+-  Outside temperature
+-  Front door lock
+
+example phrases:
+
+-  Hey Mycroft turn on the living room light
+-  Hey Mycroft what is the outside temperature?
+-  Hey Mycroft lock the front door
+-  Hey Mycroft dim the dining room dimmer 50%
 
 In French (not yet tested) :
 
