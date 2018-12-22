@@ -18,12 +18,15 @@ class Domoticz:
         config_file = os.path.join(os.path.dirname(__file__), config_name)
         self.config = configparser.ConfigParser()
         self.config.read(config_file)
-        self.host = self.config.get('domoticz', 'host')
-        self.port = self.config.get('domoticz', 'port')
-        self.protocol = self.config.get('domoticz', 'protocol')
-        if self.config.get('domoticz', 'authentication') is "True":
-            self.login = self.config.get('domoticz', 'login')
-            self.password = self.config.get('domoticz', 'password')
+        self.host = self.settings["hostname"]
+        self.port = self.settings["port"]
+        if self.settings["protocol"] is "false":
+            self.protocol = "http"
+        else:
+            self.protocol = "https"
+        if self.settings["authentication"] is "true":
+            self.login = self.settings["username"]
+            self.password = self.settings["password"]
             self.url = self.protocol + "://" + self.login + ":" + self.password + "@" + self.host + ":" + self.port
         else:
             self.url = self.protocol + "://" + self.host + ":" + self.port

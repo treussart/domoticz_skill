@@ -50,10 +50,8 @@ likely only turn off the light named "Kitchen Light".
 Config file
 -----
 
-Put your configuration in the file “conf.cfg”.
-This file is for telling Mycroft where your Domoticz server is and how it's configured.
-It can also be used for overiding actual device names. If you want a device to be called
-something in Domoticz but something else by Mycroft.
+Put your configuration in the file “conf.cfg”. It can be used for overiding actual device names.
+If you want a device to be called something in Domoticz but something else by Mycroft.
 
 ::
 
@@ -76,9 +74,13 @@ examples :
 -  all lights-house = 3
 -  Light-Living room = 4
 
+Back this file up before you update the skill from the server if you have changed the file.
+
+Mycroft Settings Page
+-----
+
 The default settings for the domoticz connection and configuration is the local host without
-authentication.  If you change it make sure to back the file up before asking Mycroft to update
-your Domoticz skill.
+authentication.  
 
 Usage
 -----
