@@ -11,25 +11,26 @@ LOGGER = getLogger(__name__)
 
 class Domoticz:
     """Class for controlling Domoticz."""
-
     def __init__(self):
         """Recover the config files for accessing to Domoticz instance."""
         config_name = "conf.cfg"
         config_file = os.path.join(os.path.dirname(__file__), config_name)
         self.config = configparser.ConfigParser()
         self.config.read(config_file)
-        self.host = self.settings["hostname"]
-        self.port = self.settings["port"]
-        if self.settings["protocol"] is "false":
-            self.protocol = "http"
-        else:
-            self.protocol = "https"
-        if self.settings["authentication"] is "true":
-            self.login = self.settings["username"]
-            self.password = self.settings["password"]
-            self.url = self.protocol + "://" + self.login + ":" + self.password + "@" + self.host + ":" + self.port
-        else:
-            self.url = self.protocol + "://" + self.host + ":" + self.port
+        #self.host = "120.0.0.1"
+        #self.port = "80"
+        #protocol = "false"
+        #authentication = "false"
+        #if protocol is "false":
+        #    self.protocol = "http"
+        #else:
+        #    self.protocol = "https"
+        #if authentication is "true":
+        #    self.login = "username"
+        #    self.password = "password"
+        #    self.url = self.protocol + "://" + self.login + ":" + self.password + "@" + self.host + ":" + self.port
+        #else:
+        #    self.url = self.protocol + "://" + self.host + ":" + self.port
 
     def convert_name_to_idx(self, what, where):
         """Convert the 'what' and the 'where', for recover the idx of the device in Domoticz."""
@@ -43,9 +44,10 @@ class Domoticz:
                     return val
         return None
 
-    def switch(self, state, what, where, action, idx):
+    def switch(self, state, what, where, action, idx, url):
         """Switch the device in Domoticz."""
         i = 0
+        self.url=url
         wht = re.compile(what,re.I)
         whr = re.compile(where,re.I)
         #dvcn = 0
@@ -139,8 +141,9 @@ class Domoticz:
                 LOGGER.debug(str(act) + str(dropout) + str(cmd))
         return result
 
-    def getid(self, idx):
+    def getid(self, idx, url):
         """Get the device's data in Domoticz."""
+        self.url = url
         try:
             f = urllib.request.urlopen(self.url + "/json.htm?type=devices&rid=" + str(idx))
             response = f.read()
@@ -148,8 +151,9 @@ class Domoticz:
         except IOError as e:
             LOGGER.error(str(e) + ' : ' + str(e.read()))
 
-    def get(self, what, where):
+    def get(self, what, where, url):
         """Get the device's data in Domoticz."""
+        self.url = url
         try:
             f = urllib.request.urlopen(self.url + "/json.htm?type=devices&filter=all&used=true")
             response = f.read()
