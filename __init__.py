@@ -19,13 +19,12 @@ from adapt.intent import IntentBuilder
 from mycroft.skills.core import MycroftSkill
 from mycroft.util.log import getLogger
 from os.path import dirname, abspath
-#from .Domoticz import Domoticz
+from .Domoticz import Domoticz
 import sys
 import re
 __author__ = 'mTreussart'
 
 sys.path.append(abspath(dirname(__file__)))
-Domoticz = __import__('Domoticz').Domoticz
 LOGGER = getLogger(__name__)
 
 
@@ -35,8 +34,6 @@ class DomoticzSkill(MycroftSkill):
         super(DomoticzSkill, self).__init__(name="DomoticzSkill")
 
     def initialize(self):
-        # register web settings changes
-        #self.settings.set_changed_callback(self.handle_domoticz_switch_intent)
         domoticz_switch_intent = IntentBuilder("SwitchIntent")\
             .optionally("TurnKeyword")\
             .require("StateKeyword")\
@@ -52,33 +49,15 @@ class DomoticzSkill(MycroftSkill):
             .optionally("StateKeyword").build()
         self.register_intent(domoticz_infos_intent,
                              self.handle_domoticz_infos_intent)
-
-    def geturl(self):
-        self.host = self.settings.get("hostname")
-        self.port = self.settings.get("port")
-        protocol = self.settings.get("protocol")
-        authentication = self.settings.get("authentication")
-        #self.speak(protocol)
-        if protocol is "true":
-            self.protocol = "https"
-        else:
-            self.protocol = "http"
-        if authentication is "true":
-            self.login = self.settings.get("username")
-            self.password = self.settings.get("password")
-            self.url = self.protocol + "://" + self.login + ":" + self.password + "@" + self.host + ":" + self.port
-        else:
-            self.url = self.protocol + "://" + self.host + ":" + self.port
-        return self.url
     
     def handle_domoticz_switch_intent(self, message):
-        domoticz = Domoticz()
-        #    self.settings.get("hostname"), 
-        #    self.settings.get("port"), 
-        #    self.settings.get("protocol"), 
-        #    self.settings.get("authentication"), 
-        #    self.settings.get("username"), 
-        #    self.settings.get("password"))
+        domoticz = Domoticz(
+            self.settings.get("hostname"), 
+            self.settings.get("port"), 
+            self.settings.get("protocol"), 
+            self.settings.get("authentication"), 
+            self.settings.get("username"), 
+            self.settings.get("password"))
         state = message.data.get("StateKeyword")
         what = message.data.get("WhatKeyword")
         where = message.data.get("WhereKeyword")
@@ -89,10 +68,7 @@ class DomoticzSkill(MycroftSkill):
         }
         
         LOGGER.debug("message : " + str(message.data))
-        idx = domoticz.convert_name_to_idx(what, where)
-        url = self.geturl()
-        #self.speak(url)
-        response = domoticz.switch(state, what, where, action, idx, url)
+        response = domoticz.switch(state, what, where, action)
         edng = re.compile(str(state).title(),re.I)
         ending = "ed"
         if edng.search('on') or edng.search('off'):
@@ -107,20 +83,20 @@ class DomoticzSkill(MycroftSkill):
     def handle_domoticz_infos_intent(self, message):
         what = message.data.get("WhatKeyword")
         where = message.data.get("WhereKeyword")
-        domoticz = Domoticz()
-        url = self.geturl()
-        idx = domoticz.convert_name_to_idx(what, where)
+        domoticz = Domoticz(
+            self.settings.get("hostname"), 
+            self.settings.get("port"), 
+            self.settings.get("protocol"), 
+            self.settings.get("authentication"), 
+            self.settings.get("username"), 
+            self.settings.get("password"))
         #idx = 1
         data = {
             'what': what,
             'where': where
         }
-        if idx is None:
-            response = domoticz.get(what, where, url)
-            data = str(response['Data'])
-        else:
-            response = domoticz.getid(idx, url)
-            data = response['result'][0]['Data']
+        response = domoticz.get(what, where)
+        data = str(response['Data'])
         if data is None:
             if where is None:
                 self.speak_dialog("NotFoundShort", data)

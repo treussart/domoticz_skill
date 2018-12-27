@@ -47,35 +47,6 @@ name "Kitchen Lights".  Mycroft will trigger on "Kitchen Light" before it trigge
 "Kitchen Lights".  So if you say "Hey Mycroft turn off the kicthen lights" it will most
 likely only turn off the light named "Kitchen Light".
 
-Config file
------
-
-Put your configuration in the file “conf.cfg”. It can be used for overiding actual device names.
-If you want a device to be called something in Domoticz but something else by Mycroft.
-
-::
-
-    Located in : domoticz_skill/conf.cfg
-
-
-The name overide principle is to put the 'what' followed by the 'where' separated by a hyphen :
-
-::
-
-   'what-where' = idx
-
-
-idx is the device number in Domoticz.
-
-examples :
-
--  temperature-living room = 1
--  flood sensor-bathroom = 2
--  all lights-house = 3
--  Light-Living room = 4
-
-Back this file up before you update the skill from the server if you have changed the file.
-
 Mycroft Settings Page
 -----
 
