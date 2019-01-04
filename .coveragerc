@@ -1,6 +1,6 @@
 [report]
 omit =  test/*.py
         .venv/*
-        /Library/Python/2.7/site-packages/mycroft/*
+        /Library/Python/3.5/site-packages/mycroft/*
 exclude_lines =
         except IOError

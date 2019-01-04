@@ -1,0 +1,61 @@
+{
+    "name": "Domoticz",
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "Server",
+                "fields": [
+                    {
+                        "type": "label",
+                        "label": "Server settings"
+                    },
+                    {
+                        "name": "hostname",
+                        "type": "text",
+                        "label": "Url",
+                        "value": "127.0.0.1"
+                    },
+                    {
+                        "name": "protocol",
+                        "type": "checkbox",
+                        "label": "Secured Https",
+                        "value": "false"
+                    },
+                    {
+                        "name": "port",
+                        "type": "text",
+                        "label": "Port",
+                        "value": "80"
+                    }
+                ]
+            },
+            {
+                "name": "User Login Information",
+                "fields": [
+                    {
+                        "type": "label",
+                        "label": "Username/password. Leave blank if not required"
+                    },
+                    {
+                        "name": "authorization",
+                        "type": "checkbox",
+                        "label": "Authorization Required",
+                        "value": "false"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "Username",
+                        "value": ""
+                    },
+                    {
+                        "name": "password",
+                        "type": "password",
+                        "label": "Password",
+                        "value": ""
+                    }
+                ]
+            }
+        ]
+    }
+}

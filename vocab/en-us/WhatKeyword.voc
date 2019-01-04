@@ -1,35 +1,47 @@
 air quality
 alarm
-all
-all lights
-all windows
 ampere
 brightness
 calendar
+conditions
+condition
+deadbolt
 door
 dusk
 desktop
+dimmer
+dimmers
 electric counter
 energy
 flood sensor
 flow sensor
 gas counter
 humidity
+latch
+latchs
 light
+lights
+lock
+locks
 luminosity
 lux
 media player
+minder
+mirror
 motion
 next trains
 oxygen sensor
 power plug
+power plugs
 presence
 rain
 smoke detector
 sound level
+slider
 television
 temperature
 text
+timer
 TV
 ultraviolet
 UV
@@ -38,6 +50,6 @@ voltage
 washing
 water counter
 waterflow
-weather
 wind
+wind speed
 window
