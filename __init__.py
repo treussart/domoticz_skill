@@ -49,14 +49,14 @@ class DomoticzSkill(MycroftSkill):
             .optionally("StateKeyword").build()
         self.register_intent(domoticz_infos_intent,
                              self.handle_domoticz_infos_intent)
-    
+
     def handle_domoticz_switch_intent(self, message):
         domoticz = Domoticz(
-            self.settings.get("hostname"), 
-            self.settings.get("port"), 
-            self.settings.get("protocol"), 
-            self.settings.get("authentication"), 
-            self.settings.get("username"), 
+            self.settings.get("hostname"),
+            self.settings.get("port"),
+            self.settings.get("protocol"),
+            self.settings.get("authentication"),
+            self.settings.get("username"),
             self.settings.get("password"))
         state = message.data.get("StateKeyword")
         what = message.data.get("WhatKeyword")
@@ -66,10 +66,10 @@ class DomoticzSkill(MycroftSkill):
             'what': what,
             'where': where
         }
-        
+
         LOGGER.debug("message : " + str(message.data))
         response = domoticz.switch(state, what, where, action)
-        edng = re.compile(str(state).title(),re.I)
+        edng = re.compile(str(state).title(), re.I)
         ending = "ed"
         if edng.search('on') or edng.search('off'):
             ending = ""
@@ -84,13 +84,12 @@ class DomoticzSkill(MycroftSkill):
         what = message.data.get("WhatKeyword")
         where = message.data.get("WhereKeyword")
         domoticz = Domoticz(
-            self.settings.get("hostname"), 
-            self.settings.get("port"), 
-            self.settings.get("protocol"), 
-            self.settings.get("authentication"), 
-            self.settings.get("username"), 
+            self.settings.get("hostname"),
+            self.settings.get("port"),
+            self.settings.get("protocol"),
+            self.settings.get("authentication"),
+            self.settings.get("username"),
             self.settings.get("password"))
-        #idx = 1
         data = {
             'what': what,
             'where': where
