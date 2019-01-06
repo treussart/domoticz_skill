@@ -34,6 +34,9 @@ class Domoticz:
         f = urllib.request.urlopen(self.url + "/json.htm?type=devices&filter=all&used=true")
         response = f.read()
         payload = json.loads(response.decode('utf-8'))
+        idx = False
+        stype = False
+        dlevel = False
         while i < len(payload['result']):
             if whr.search(payload['result'][i]['Name']) and wht.search(payload['result'][i]['Name']):
                 stype = payload['result'][i]['Type']
